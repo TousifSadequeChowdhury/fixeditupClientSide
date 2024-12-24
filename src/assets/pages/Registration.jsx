@@ -37,7 +37,7 @@ const Registration = () => {
             placeholder="Full Name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#7695FF]"
+            className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
             required
           />
           
@@ -48,7 +48,7 @@ const Registration = () => {
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#7695FF]"
+            className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
             required
           />
 
@@ -59,7 +59,7 @@ const Registration = () => {
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#7695FF]"
+            className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
             required
           />
 
@@ -70,20 +70,20 @@ const Registration = () => {
             placeholder="Photo URL"
             value={formData.photoURL}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#7695FF]"
+            className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
           />
 
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full p-3 bg-[#7695FF] text-white rounded-md hover:bg-[#6478E6] focus:outline-none"
+            className="w-full p-3 bg-[#3D405B] text-white rounded-md hover:bg-[#343750] focus:outline-none"
           >
             Register
           </button>
         </form>
         <p className="mt-4 text-center text-gray-600">
           Already have an account?{' '}
-          <Link to="/login" className="text-[#7695FF] hover:underline">
+          <Link to="/login" className="text-[#3D405B] hover:underline">
             Sign In
           </Link>
         </p>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Nav = () => {
     return (
-        <div className="navbar bg-[#7695FF]">
+        <div className="navbar bg-[#3D405B] text-[#E07A5F]">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -27,8 +27,8 @@ const Nav = () => {
               <li>
                 <a>Dashboard</a>
                 <ul className="p-2">
-                <li><Link to="/dashboard/add-service">Add Service</Link></li>
-                <li><Link to="/dashboard/manage-service">Manage Service</Link></li>
+                <li><Link to="addservice">Add Service</Link></li>
+                <li><Link to="manageservice">Manage Service</Link></li>
                 <li><Link to="/dashboard/booked-services">Booked Services</Link></li>
                 <li><Link to="/dashboard/service-to-do">Service To Do</Link></li> 
                 </ul>
@@ -45,8 +45,8 @@ const Nav = () => {
               <details>
                 <summary>Dashboard</summary>
                 <ul className="p-2">
-                <li><Link to="/dashboard/add-service">Add Service</Link></li>
-                <li><Link to="/dashboard/manage-service">Manage Service</Link></li>
+                <li><Link to="addservice">Add Service</Link></li>
+                <li><Link to="manageservice">Manage Service</Link></li>
                 <li><Link to="/dashboard/booked-services">Booked Services</Link></li>
                 <li><Link to="/dashboard/service-to-do">Service To Do</Link></li> 
                 </ul>

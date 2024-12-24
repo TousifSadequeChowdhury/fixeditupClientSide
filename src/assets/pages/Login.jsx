@@ -12,25 +12,25 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="Email"
-                className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#7695FF]"
+                className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
                 required
               />
               <input
                 type="password"
                 placeholder="Password"
-                className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#7695FF]"
+                className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
                 required
               />
               <button
                 type="submit"
-                className="w-full p-3 bg-[#7695FF] text-white rounded-md hover:bg-[#6478E6] focus:outline-none"
+                className="w-full p-3 bg-[#3D405B] text-white rounded-md hover:bg-[#343750] focus:outline-none"
               >
                 Login
               </button>
             </form>
             <p className="mt-4 text-center text-gray-600">
               Don't have an account?{' '}
-              <Link to="/registration" className="text-[#7695FF] hover:underline">
+              <Link to="/registration" className="text-[#3D405B] hover:underline">
               Sign Up
               </Link>
             </p>
