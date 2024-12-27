@@ -1,26 +1,38 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import AuthProvider, { AuthContext } from '../../AuthProvider';
 
 const Registration = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    photoURL: '',
-  });
+  // const [formData, setFormData] = useState({
+  //   name: '',
+  //   email: '',
+  //   password: '',
+  //   photoURL: '',
+  // });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
+  const { registerUser, setUser } = useContext(AuthContext);
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // You can add logic to handle registration, like sending data to the backend
+    const form = new FormData(e.target);
+    const name = form.get("name");
+    const email = form.get("email");
+    const password = form.get("password");
+    const photourl = form.get("photourl");
+    try {
+      // Register the user with email and password
+      const result = await registerUser(email, password);
+      const user = result.user;
+      // Update the user's profile with their name
+      // await updateProfile(user, { displayName: name,photoURL:photourl });
+
+      // Refresh the user state to reflect the updated profile
+      setUser({ ...user, displayName: name });
+      console.log("User created:", user);
+    } catch (error) {
+      console.error("Error creating user:", error.message, error.code);
+    }
+    // console.log({name,email,password,photourl})
   };
 
   return (
@@ -34,9 +46,8 @@ const Registration = () => {
           <input
             type="text"
             name="name"
+            id="name"
             placeholder="Full Name"
-            value={formData.name}
-            onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
             required
           />
@@ -45,9 +56,8 @@ const Registration = () => {
           <input
             type="email"
             name="email"
+            id="email"
             placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
             required
           />
@@ -56,9 +66,8 @@ const Registration = () => {
           <input
             type="password"
             name="password"
+            id="password"
             placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
             required
           />
@@ -67,9 +76,8 @@ const Registration = () => {
           <input
             type="url"
             name="photoURL"
+            id="photoURL"
             placeholder="Photo URL"
-            value={formData.photoURL}
-            onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
           />
 
