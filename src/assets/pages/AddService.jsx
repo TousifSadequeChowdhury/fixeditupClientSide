@@ -20,9 +20,32 @@ const AddService = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Product added:', formData);
-    // Add your logic to send the formData to the backend or perform other actions
+  
+      fetch("http://localhost:3000/api/data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Failed to add movie");
+          }
+          return res.json();
+        })
+        .then((formData) => {
+          console.log("Movie added successfully:", formData);
+          // toast.success("Movie added successfully!"); // Success message
+        })
+        .catch((error) => {
+          console.error("Error:", error.message);
+          // toast.error("Failed to add movie. Please try again."); // Error message
+        });
+    
+  
   };
-
+  
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
           <div className="bg-white p-8 rounded-lg shadow-lg w-96">
