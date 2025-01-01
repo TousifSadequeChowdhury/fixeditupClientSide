@@ -1,198 +1,170 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const ManageService = () => {
-    const [services, setServices] = useState([
-      {
-        id: 1,
-        imageUrl: 'https://via.placeholder.com/150',
-        serviceName: 'Service 1',
-        price: 100,
-        serviceArea: 'Area 1',
-        description: 'Description for Service 1',
-      },
-      {
-        id: 2,
-        imageUrl: 'https://via.placeholder.com/150',
-        serviceName: 'Service 2',
-        price: 200,
-        serviceArea: 'Area 2',
-        description: 'Description for Service 2',
-      },
-    ]);
-  
+  const [services, setServices] = useState([]);
+  const [editService, setEditService] = useState(null); // State for editing service
+  const [updatedService, setUpdatedService] = useState({
+    serviceName: '',
+    price: '',
+    serviceArea: '',
+    description: '',
+    imageUrl: ''
+  });
 
-    const [editService, setEditService] = useState(null);
-    const [deleteServiceId, setDeleteServiceId] = useState(null);
+  // Fetch services from API
+  useEffect(() => {
+    fetch('http://localhost:3000/api/services')
+      .then(response => response.json())
+      .then(data => {
+        console.log('Fetched data:', data);
+        setServices(data);
+      })
+      .catch(error => console.error('Error fetching services:', error));
+  }, []);
+
+  // Handle input change for editing service
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUpdatedService((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Update service on submit
+  const handleUpdateService = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:3000/edit/${editService._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedService),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Updated service:', data);
+        setServices(services.map(service => (service._id === editService._id ? data : service)));
+        setEditService(null);
+      })
+      .catch(error => console.error('Error updating service:', error));
+  };
   
-    const handleUpdateService = (e) => {
-      e.preventDefault();
-      setServices((prevServices) =>
-        prevServices.map((service) =>
-          service.id === editService.id ? editService : service
-        )
-      );
-      setEditService(null);
-    };
-  
-    const handleDeleteService = () => {
-      setServices((prevServices) =>
-        prevServices.filter((service) => service.id !== deleteServiceId)
-      );
-      setDeleteServiceId(null);
-    };
     return (
         <div className="min-h-screen bg-gray-100 p-6">
           <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
             Manage Services
           </h1>
-    
-          {/* Services List */}
-          <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => (
-              <div key={service.id} className="bg-white rounded-lg shadow p-4">
-                <img
-                  src={service.imageUrl}
-                  alt={service.serviceName}
-                  className="rounded-lg w-full h-48 object-cover mb-4"
-                />
-                <h3 className="text-xl font-semibold mb-2">{service.serviceName}</h3>
-                <p className="text-gray-600 mb-2">
-                  <strong>Price:</strong> ${service.price}
-                </p>
-                <p className="text-gray-600 mb-2">
-                  <strong>Service Area:</strong> {service.serviceArea}
-                </p>
-                <p className="text-gray-600 mb-4">
-                  <strong>Description:</strong> {service.description}
-                </p>
-                <div className="flex space-x-4">
-                  <button
-                    onClick={() => setEditService(service)}
-                    className="px-4 py-2 bg-[#7695FF] text-white rounded-md hover:bg-[#6478E6]"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => setDeleteServiceId(service.id)}
-                    className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
+     {/* Edit Service Form */}
+     {editService && (
+        <form onSubmit={handleUpdateService} className="bg-white p-6 rounded-lg shadow mb-6">
+          <h2 className="text-2xl font-semibold mb-4">Edit Service</h2>
+          <div className="mb-4">
+            <label className="block text-gray-700">Service Name</label>
+            <input
+              type="text"
+              name="serviceName"
+              value={updatedService.serviceName}
+              onChange={handleInputChange}
+              className="w-full p-2 border border-gray-300 rounded-md"
+            />
           </div>
-    
-          {/* Edit Service Modal */}
-          {editService && (
-            <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-              <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-                  Edit Service
-                </h2>
-                <form className="space-y-4" onSubmit={handleUpdateService}>
-                  <input
-                    type="url"
-                    name="imageUrl"
-                    placeholder="Image URL"
-                    value={editService.imageUrl}
-                    onChange={(e) =>
-                      setEditService({ ...editService, imageUrl: e.target.value })
-                    }
-                    className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#7695FF]"
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="serviceName"
-                    placeholder="Service Name"
-                    value={editService.serviceName}
-                    onChange={(e) =>
-                      setEditService({ ...editService, serviceName: e.target.value })
-                    }
-                    className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#7695FF]"
-                    required
-                  />
-                  <input
-                    type="number"
-                    name="price"
-                    placeholder="Price"
-                    value={editService.price}
-                    onChange={(e) =>
-                      setEditService({ ...editService, price: e.target.value })
-                    }
-                    className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#7695FF]"
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="serviceArea"
-                    placeholder="Service Area"
-                    value={editService.serviceArea}
-                    onChange={(e) =>
-                      setEditService({ ...editService, serviceArea: e.target.value })
-                    }
-                    className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#7695FF]"
-                    required
-                  />
-                  <textarea
-                    name="description"
-                    placeholder="Description"
-                    value={editService.description}
-                    onChange={(e) =>
-                      setEditService({ ...editService, description: e.target.value })
-                    }
-                    className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#7695FF] h-32 resize-none"
-                    required
-                  />
-                  <div className="flex justify-end space-x-4">
-                    <button
-                      type="button"
-                      onClick={() => setEditService(null)}
-                      className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-4 py-2 bg-[#7695FF] text-white rounded-md hover:bg-[#6478E6]"
-                    >
-                      Update
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          )}
-    
-          {/* Delete Confirmation Modal */}
-          {deleteServiceId && (
-            <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-              <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-                  Confirm Deletion
-                </h2>
-                <p className="text-gray-600 mb-6">
-                  Are you sure you want to delete this service? This action cannot
-                  be undone.
-                </p>
-                <div className="flex justify-end space-x-4">
-                  <button
-                    onClick={() => setDeleteServiceId(null)}
-                    className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={handleDeleteService}
-                    className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
+          <div className="mb-4">
+            <label className="block text-gray-700">Price</label>
+            <input
+              type="number"
+              name="price"
+              value={updatedService.price}
+              onChange={handleInputChange}
+              className="w-full p-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Service Area</label>
+            <input
+              type="text"
+              name="serviceArea"
+              value={updatedService.serviceArea}
+              onChange={handleInputChange}
+              className="w-full p-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Description</label>
+            <textarea
+              name="description"
+              value={updatedService.description}
+              onChange={handleInputChange}
+              className="w-full p-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Image URL</label>
+            <input
+              type="text"
+              name="imageUrl"
+              value={updatedService.imageUrl}
+              onChange={handleInputChange}
+              className="w-full p-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          <button
+            type="submit"
+            className="px-4 py-2 bg-[#7695FF] text-white rounded-md hover:bg-[#6478E6]"
+          >
+            Update Service
+          </button>
+        </form>
+      )}
+          {/* Services List */}
+        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+  {services.map(service => (
+    // This is where the key should be unique for each service.
+    <div key={String(service._id)} className="bg-white rounded-lg shadow p-4">
+      <h1>{service._id}</h1> {/* Ensure service._id is unique */}
+      <img
+        src={service.imageUrl}
+        alt={service.serviceName}
+        className="rounded-lg w-full h-48 object-cover mb-4"
+      />
+      <h3 className="text-xl font-semibold mb-2">{service.serviceName}</h3>
+      <p className="text-gray-600 mb-2">
+        <strong>Price:</strong> ${service.price}
+      </p>
+      <p className="text-gray-600 mb-2">
+        <strong>Service Area:</strong> {service.serviceArea}
+      </p>
+      <p className="text-gray-600 mb-4">
+        <strong>Description:</strong> {service.description}
+      </p>
+      <div className="flex space-x-4">
+        <button
+          onClick={() => {
+            setEditService(service);
+            setUpdatedService({
+              serviceName: service.serviceName,
+              price: service.price,
+              serviceArea: service.serviceArea,
+              description: service.description,
+              imageUrl: service.imageUrl,
+            });
+          }}
+          className="px-4 py-2 bg-[#7695FF] text-white rounded-md hover:bg-[#6478E6]"
+        >
+          Edit
+        </button>
+        <button
+          onClick={() => setDeleteServiceId(service.id)}
+          className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
+
+
         </div>
       );
 };

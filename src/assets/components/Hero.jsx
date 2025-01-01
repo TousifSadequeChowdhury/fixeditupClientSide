@@ -1,27 +1,44 @@
-
-
 import React from 'react';
-import { Zoom } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css'
-
-const images = [
-  'https://i.ibb.co.com/WpfdLZY/m-tracking.png',
-  'https://i.ibb.co.com/WpfdLZY/m-tracking.png',
-  'https://i.ibb.co.com/WpfdLZY/m-tracking.png',
-  'https://i.ibb.co.com/WpfdLZY/m-tracking.png',
-  'https://i.ibb.co.com/WpfdLZY/m-tracking.png',
-  'https://i.ibb.co.com/WpfdLZY/m-tracking.png'
-];
+import Swiper from 'react-id-swiper';  // Import react-id-swiper
+import 'swiper/swiper-bundle.min.css';
 
 const Hero = () => {
-    return (
-      <div className="slide-container">
-        <Zoom scale={0.4}>
-          {
-            images.map((each, index) => <img key={index} style={{width: "100%"}} src={each} />)
-          }
-        </Zoom>
-      </div>
-    )
-}
+  return (
+    <div>
+      <Swiper>
+        <div>
+          <img className='max-w-full'
+            src="https://i.ibb.co.com/sKs6Mpd/AC-service.png"
+            alt="AC Servicing"
+          />
+        </div>
+        <div>
+          <img
+            src="https://i.ibb.co.com/sKs6Mpd/AC-service.png"
+            alt="AC Servicing"
+          />
+        </div>
+        <div>
+          <img
+            src="https://i.ibb.co.com/sKs6Mpd/AC-service.png"
+            alt="AC Servicing"
+          />
+        </div>
+        <div>
+          <img
+            src="https://i.ibb.co.com/sKs6Mpd/AC-service.png"
+            alt="AC Servicing"
+          />
+        </div>
+        <div>
+          <img
+            src="https://i.ibb.co.com/sKs6Mpd/AC-service.png"
+            alt="AC Servicing"
+          />
+        </div>
+      </Swiper>
+    </div>
+  );
+};
+
 export default Hero;
