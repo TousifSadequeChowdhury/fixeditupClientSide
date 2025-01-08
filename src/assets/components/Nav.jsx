@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider';
 import { MdLogout } from "react-icons/md";
+import { auth } from '../../firebase.config';
+import { signOut } from 'firebase/auth';
 
 const Nav = () => {
 
@@ -22,10 +24,16 @@ const Nav = () => {
 
 // }
 
-  const handleLogout = () => {
-    // Implement your logout logic here (e.g., Firebase auth or custom logout logic)
-    onLogout();
-  };
+const handleLogout = () => {
+  signOut(auth)
+      .then(() => {
+          console.log("User logged out successfully");
+         Navigate("/login"); // Redirect to the login page
+      })
+      .catch((error) => {
+          console.error("Error during logout:", error);
+      });
+};
     return (
         <div className="navbar bg-[#3D405B] text-[#E07A5F]">
         <div className="navbar-start">
@@ -47,7 +55,7 @@ const Nav = () => {
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <li><a>Home</a></li>
+              <li><a href="/">Home</a></li>
               <li>
                 <a>Dashboard</a>
                 <ul className="p-2">
@@ -64,7 +72,7 @@ const Nav = () => {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li><a>Home</a></li>
+            <li><a href="/">Home</a></li>
             <li>
               <details>
                 <summary>Dashboard</summary>
@@ -90,7 +98,7 @@ const Nav = () => {
             className="w-8 h-8 rounded-full object-cover" 
           />
           <span className="text-xl font-semibold text-gray-500">{user.displayName || 'Username'}</span>
-          <MdLogout className="w-6 h-6 text-gray-500 hover:text-red-500" />
+          <MdLogout onClick={handleLogout} className="w-6 h-6 text-gray-500 hover:text-red-500" />
           </div>
       ) : (
         <Link to="/login" className="btn bg-blue-500 text-white hover:bg-blue-600 rounded px-4 py-2">
