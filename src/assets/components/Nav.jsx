@@ -101,7 +101,7 @@ const handleLogout = () => {
           <MdLogout onClick={handleLogout} className="w-6 h-6 text-gray-500 hover:text-red-500" />
           </div>
       ) : (
-        <Link to="/login" className="btn bg-blue-500 text-white hover:bg-blue-600 rounded px-4 py-2">
+        <Link to="/login" className="bg-[#E07A5F] text-[#3D405B] hover:bg-[#e07b5fb2] rounded px-2 py-1">
           Login
         </Link>
       )}
