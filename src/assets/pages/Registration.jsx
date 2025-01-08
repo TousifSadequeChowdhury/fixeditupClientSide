@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthProvider, { AuthContext } from '../../AuthProvider';
+import { updateProfile } from 'firebase/auth';
 
 const Registration = () => {
   // const [formData, setFormData] = useState({
@@ -18,16 +19,17 @@ const Registration = () => {
     const name = form.get("name");
     const email = form.get("email");
     const password = form.get("password");
-    const photourl = form.get("photourl");
+    const photoURL = form.get("photoURL");
     try {
       // Register the user with email and password
       const result = await registerUser(email, password);
       const user = result.user;
       // Update the user's profile with their name
       // await updateProfile(user, { displayName: name,photoURL:photourl });
+      await updateProfile(user, { displayName: name, photoURL: photoURL });
 
       // Refresh the user state to reflect the updated profile
-      setUser({ ...user, displayName: name });
+      setUser({ ...user,  displayName: name, photoURL: photoURL });
       console.log("User created:", user);
     } catch (error) {
       console.error("Error creating user:", error.message, error.code);

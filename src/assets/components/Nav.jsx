@@ -1,7 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../AuthProvider';
+import { MdLogout } from "react-icons/md";
 
 const Nav = () => {
+
+  const { user } = useContext(AuthContext); // Access user and logOut function
+//   const handleLogOut = async () => {
+//     try {
+//         await logOut();
+//     } catch (error) {
+//         console.error("Logout failed:", error.message);
+//     }
+// };
+// if(!user){
+//   console.log("no user")
+// }
+// else{
+//   console.log(user.photoURL)
+
+
+// }
+
+  const handleLogout = () => {
+    // Implement your logout logic here (e.g., Firebase auth or custom logout logic)
+    onLogout();
+  };
     return (
         <div className="navbar bg-[#3D405B] text-[#E07A5F]">
         <div className="navbar-start">
@@ -55,8 +79,25 @@ const Nav = () => {
             <li><a>Services</a></li>
           </ul>
         </div>
-        <div className="navbar-end">
-       <Link to="/login" className='btn'>LogIn</Link>
+        <div className="navbar-end flex items-center">
+       
+        {user ? (
+        <div className="flex items-center space-x-4">
+          {/* Display user photo and name */}
+          <img 
+            src={user.photoURL || 'default-avatar.png'} 
+            alt="User Avatar" 
+            className="w-8 h-8 rounded-full object-cover" 
+          />
+          <span className="text-xl font-semibold text-gray-500">{user.displayName || 'Username'}</span>
+          <MdLogout className="w-6 h-6 text-gray-500 hover:text-red-500" />
+          </div>
+      ) : (
+        <Link to="/login" className="btn bg-blue-500 text-white hover:bg-blue-600 rounded px-4 py-2">
+          Login
+        </Link>
+      )}
+       
         </div>
       </div>
     );

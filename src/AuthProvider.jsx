@@ -5,6 +5,7 @@ import { auth, googleProvider  } from './firebase.config'; // Import the correct
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+    
     const [user, setUser] = useState(null);
 
     // Function to create a new user
@@ -24,8 +25,7 @@ const AuthProvider = ({ children }) => {
       .then((result) => {
         const user = result.user;
         setUser(user); // Set the user after successful login
-        // console.log(user.photoURL
-        // )
+        //  console.log(user.photoURL)
       })
       .catch((error) => {
         console.error(error);
@@ -43,7 +43,6 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
         });
-
         // Cleanup subscription on component unmount
         return () => {
             unsubscribe();

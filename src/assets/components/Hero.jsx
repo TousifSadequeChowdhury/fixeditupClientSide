@@ -4,7 +4,7 @@ import 'swiper/swiper-bundle.min.css';
 
 const Hero = () => {
   return (
-    <div>
+    <div className='mt-44'>
       <Swiper>
         <div>
           <img className='max-w-full'
