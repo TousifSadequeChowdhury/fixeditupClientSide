@@ -35,7 +35,7 @@ const handleLogout = () => {
       });
 };
     return (
-        <div className="navbar bg-[#3D405B] text-[#E07A5F]">
+        <div className="navbar bg-[#3D405B] text-[#E07A5F] z-10">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

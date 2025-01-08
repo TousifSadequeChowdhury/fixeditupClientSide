@@ -20,8 +20,9 @@ const AddService = () => {
       ...formData,
       [name]: value,
       email: user.email,
+      ProviderName: user.displayName,
+      ProviderImage: user.photoURL,
     });
-    console.log(user);
   };
 
   const handleSubmit = (e) => {
@@ -38,20 +39,20 @@ const AddService = () => {
       })
         .then((res) => {
           if (!res.ok) {
-            throw new Error("Failed to add movie");
+            throw new Error("Failed to add service");
           }
           return res.json();
         })
         .then((formData) => {
-          console.log("Movie added successfully:", formData);
-          // toast.success("Movie added successfully!"); // Success message
+          console.log("service added successfully:", formData);
+          // toast.success("service added successfully!"); // Success message
         })
         .catch((error) => {
           console.error("Error:", error.message);
-          // toast.error("Failed to add movie. Please try again."); // Error message
+          // toast.error("Failed to add service. Please try again."); // Error message
         });
     
-  
+  console.log(user)
   };
   
     return (
