@@ -61,8 +61,8 @@ const handleLogout = () => {
                 <ul className="p-2">
                 <li><Link to="addservice">Add Service</Link></li>
                 <li><Link to="manageservice">Manage Service</Link></li>
-                <li><Link to="/dashboard/booked-services">Booked Services</Link></li>
-                <li><Link to="/dashboard/service-to-do">Service To Do</Link></li> 
+                <li><Link to="servicetodo">Booked Services</Link></li>
+                {/* <li><Link to="/dashboard/service-to-do">Service To Do</Link></li>  */}
                 </ul>
               </li>
               <li><a>Services</a></li>
@@ -80,7 +80,7 @@ const handleLogout = () => {
                 <li><Link to="addservice">Add Service</Link></li>
                 <li><Link to="manageservice">Manage Service</Link></li>
                 <li><Link to="/dashboard/booked-services">Booked Services</Link></li>
-                <li><Link to="/dashboard/service-to-do">Service To Do</Link></li> 
+                <li><Link to="/servicetodo">Service To Do</Link></li> 
                 </ul>
               </details>
             </li>

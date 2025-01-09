@@ -8,6 +8,7 @@ import Registration from "../pages/Registration";
 import AddService from "../pages/AddService";
 import ManageService from "../pages/ManageService";
 import Service from "../components/Service";
+import ProviderDashboard from "../pages/ProviderDashboard ";
 function AppRoutes() {
   return (
     <Routes>
@@ -18,6 +19,8 @@ function AppRoutes() {
       <Route path="/addservice" element={<AddService/>} />
       <Route path="/manageservice" element={<ManageService/>} />
       <Route path="/services" element={<Service/>} />
+      <Route path="/servicetodo" element={<ProviderDashboard/>} />
+
 
     </Routes>
     
