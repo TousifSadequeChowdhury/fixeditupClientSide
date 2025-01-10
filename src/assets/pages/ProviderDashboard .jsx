@@ -33,7 +33,34 @@ const ProviderDashboard = () => {
         setError("Failed to load cart data. Please try again later.");
       });
   }, [user]);
-  
+
+  // Function to handle status change
+  const handleStatusChange = (itemId, newStatus) => {
+    // Update the cartItems state with the new status
+    setCartItems(prevItems => 
+      prevItems.map(item => 
+        item._id === itemId ? { ...item, status: newStatus } : item
+      )
+    );
+
+    // Send the updated status to the backend
+    fetch(`http://localhost:3000/api/cart/${itemId}/status`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status: newStatus }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to update status.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating status:", error);
+        setError("Failed to update status. Please try again later.");
+      });
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -56,6 +83,20 @@ const ProviderDashboard = () => {
               <p>Price: {item.price}</p>
               <p>Area: {item.serviceArea}</p>
               <p>User Email: {item.userEmail}</p>
+
+              {/* Editable status */}
+              <div>
+                <label className="mr-2">Status: </label>
+                <select
+                  value={item.status}
+                  onChange={(e) => handleStatusChange(item._id, e.target.value)}
+                  className="border p-1 rounded"
+                >
+                  <option value="pending">Pending</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
             </li>
           ))}
         </ul>

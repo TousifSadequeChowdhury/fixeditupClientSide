@@ -1,41 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 const Services = ({ service }) => {
-  const { description, imageUrl, price, serviceArea, serviceName, _id, ProviderImage, ProviderName,email } = service;
+  const { imageUrl, serviceName, description, price, serviceArea, ProviderImage, ProviderName, _id ,email} = service;
+  const navigate = useNavigate();
 
-  // Handle "Get Service" button click
-  const handleGetService = () => {
-    const userEmail = email; // Replace with Firebase Auth or user email
-
-    const serviceToAdd = {
-      serviceId: _id,
-      serviceName,
-      price,
-      serviceArea,
-      userEmail,
-      status: 'pending',
-    };
-
-    // Send the service data to the backend to add it to the cart
-    fetch('http://localhost:3000/api/cart', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(serviceToAdd),
-    })
-      .then(response => response.json())
-      .then(() => {
-        alert('Service added to cart successfully!');
-      })
-      .catch(() => {
-        alert('Failed to add service to cart.');
-      });
+  const handleViewDetails = () => {
+    // Passing service data to the details page via state
+    navigate(`/services/${_id}`, {
+      state: { service } // Send the entire service data
+    });
   };
 
   return (
-    <div className="card card-compact bg-base-100 w-96 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+    <div className="card bg-base-100 w-96 shadow-xl hover:shadow-2xl transition-shadow duration-300">
       <img src={imageUrl} alt={serviceName} className="w-full h-64 object-cover rounded-t-lg" />
       <div className="card-body">
         <h2 className="card-title text-2xl font-semibold text-gray-800">{serviceName}</h2>
@@ -50,16 +28,12 @@ const Services = ({ service }) => {
           <img src={ProviderImage} alt={ProviderName} className="w-10 h-10 rounded-full border-2 border-gray-300" />
           <p className="text-sm font-semibold text-gray-700">{ProviderName}</p>
         </div>
-        <button className="btn btn-primary px-4 py-2" onClick={handleGetService}>
-          Get Service
+        <button className="btn btn-primary px-4 py-2" onClick={handleViewDetails}>
+          View Details
         </button>
       </div>
     </div>
   );
-};
-
-Services.propTypes = {
-  service: PropTypes.object.isRequired,
 };
 
 export default Services;

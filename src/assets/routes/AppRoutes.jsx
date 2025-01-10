@@ -9,6 +9,7 @@ import AddService from "../pages/AddService";
 import ManageService from "../pages/ManageService";
 import Service from "../components/Service";
 import ProviderDashboard from "../pages/ProviderDashboard ";
+import ServiceDetails from "../pages/ServiceDetails";
 function AppRoutes() {
   return (
     <Routes>
@@ -20,7 +21,7 @@ function AppRoutes() {
       <Route path="/manageservice" element={<ManageService/>} />
       <Route path="/services" element={<Service/>} />
       <Route path="/servicetodo" element={<ProviderDashboard/>} />
-
+     <Route path="/services/:id" element={<ServiceDetails/>} />
 
     </Routes>
     
