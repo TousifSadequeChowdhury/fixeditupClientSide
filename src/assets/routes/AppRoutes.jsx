@@ -10,20 +10,25 @@ import ManageService from "../pages/ManageService";
 import Service from "../components/Service";
 import ProviderDashboard from "../pages/ProviderDashboard ";
 import ServiceDetails from "../pages/ServiceDetails";
+import Privateroutes from "./Privateroutes";
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Home></Home>} />
-      <Route path="*" element={<NotFound/>} />
-      <Route path="/login" element={<Login></Login>} />
-      <Route path="/registration" element={<Registration/>} />
-      <Route path="/addservice" element={<AddService/>} />
-      <Route path="/manageservice" element={<ManageService/>} />
-      <Route path="/services" element={<Service/>} />
-      <Route path="/servicetodo" element={<ProviderDashboard/>} />
-     <Route path="/services/:id" element={<ServiceDetails/>} />
+    <Route path="/" element={<Home />} />
+    <Route path="*" element={<NotFound />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/registration" element={<Registration />} />
 
-    </Routes>
+    {/* Public Routes */}
+    <Route path="/services" element={<Service />} />
+
+    {/* Private Routes */}
+    <Route path="/addservice" element={<Privateroutes><AddService /></Privateroutes>} />
+      <Route path="/manageservice" element={<Privateroutes><ManageService /></Privateroutes>} />
+      <Route path="/servicetodo" element={<Privateroutes><ProviderDashboard /></Privateroutes>} />
+      <Route path="/services/:id" element={<Privateroutes><ServiceDetails /></Privateroutes>} />
+
+  </Routes>
     
   );
 }
