@@ -11,6 +11,7 @@ import Service from "../components/Service";
 import ProviderDashboard from "../pages/ProviderDashboard ";
 import ServiceDetails from "../pages/ServiceDetails";
 import Privateroutes from "./Privateroutes";
+import CustomerReviews from "../pages/CustomerReviews";
 function AppRoutes() {
   return (
     <Routes>
@@ -21,6 +22,7 @@ function AppRoutes() {
 
     {/* Public Routes */}
     <Route path="/services" element={<Service />} />
+    <Route path="/customerevew" element={<CustomerReviews />} />
 
     {/* Private Routes */}
     <Route path="/addservice" element={<Privateroutes><AddService /></Privateroutes>} />

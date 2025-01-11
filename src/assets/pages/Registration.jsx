@@ -1,18 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import AuthProvider, { AuthContext } from '../../AuthProvider';
-import { updateProfile } from 'firebase/auth';
+import { AuthContext } from '../../AuthProvider';
+import { FcGoogle } from "react-icons/fc";
 
 const Registration = () => {
-  // const [formData, setFormData] = useState({
-  //   name: '',
-  //   email: '',
-  //   password: '',
-  //   photoURL: '',
-  // });
+  const { registerUser, setUser, googleLogin } = useContext(AuthContext);
 
-  const { registerUser, setUser } = useContext(AuthContext);
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = new FormData(e.target);
@@ -20,21 +13,27 @@ const Registration = () => {
     const email = form.get("email");
     const password = form.get("password");
     const photoURL = form.get("photoURL");
+
     try {
       // Register the user with email and password
       const result = await registerUser(email, password);
       const user = result.user;
-      // Update the user's profile with their name
-      // await updateProfile(user, { displayName: name,photoURL:photourl });
-      await updateProfile(user, { displayName: name, photoURL: photoURL });
 
-      // Refresh the user state to reflect the updated profile
-      setUser({ ...user,  displayName: name, photoURL: photoURL });
+      // Update the user state
+      setUser({ ...user, displayName: name, photoURL });
       console.log("User created:", user);
     } catch (error) {
       console.error("Error creating user:", error.message, error.code);
     }
-    // console.log({name,email,password,photourl})
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await googleLogin();
+      console.log("Logged in with Google successfully!");
+    } catch (error) {
+      console.error("Google login error:", error.message);
+    }
   };
 
   return (
@@ -79,7 +78,7 @@ const Registration = () => {
             type="url"
             name="photoURL"
             id="photoURL"
-            placeholder="Photo URL"
+            placeholder="Photo URL (Optional)"
             className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
           />
 
@@ -91,6 +90,19 @@ const Registration = () => {
             Register
           </button>
         </form>
+
+        <div className="mt-4">
+        <button
+  onClick={handleGoogleLogin}
+  className="w-full p-3 border border-gray-300 rounded-md flex items-center justify-center hover:border-gray-400 focus:outline-none FLEX gap-3"
+>
+<FcGoogle />
+  <span className="text-gray-700 font-medium">
+    Sign in with Google
+  </span>
+</button>
+        </div>
+
         <p className="mt-4 text-center text-gray-600">
           Already have an account?{' '}
           <Link to="/login" className="text-[#3D405B] hover:underline">

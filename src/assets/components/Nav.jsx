@@ -57,34 +57,44 @@ const handleLogout = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
               <li><a href="/">Home</a></li>
               <li>
-                <a>Dashboard</a>
-                <ul className="p-2">
-                <li><Link to="addservice">Add Service</Link></li>
-                <li><Link to="manageservice">Manage Service</Link></li>
-                <li><Link to="servicetodo">Booked Services</Link></li>
-                {/* <li><Link to="/dashboard/service-to-do">Service To Do</Link></li>  */}
-                </ul>
-              </li>
-              <li><a>Services</a></li>
+              
+              {user && ( 
+          <details>
+            <summary>Dashboard</summary>
+            <ul className="p-2">
+              <li><Link to="addservice">Add Service</Link></li>
+              <li><Link to="manageservice">Manage Service</Link></li>
+              <li><Link to="/dashboard/booked-services">Booked Services</Link></li>
+              <li><Link to="/servicetodo">Service To Do</Link></li>
             </ul>
+          </details>
+        )}
+  
+              </li>
+              <li><Link to="/home">Services</Link></li> 
+              </ul>
           </div>
-          <a className="btn btn-ghost text-xl">FIXEDITUP</a>
+          <Link to="/services"> <a className="btn btn-ghost text-xl">FIXEDITUP</a></Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li><a href="/">Home</a></li>
+            <li><Link to="/services">Services</Link></li> 
             <li>
-              <details>
-                <summary>Dashboard</summary>
-                <ul className="p-2">
-                <li><Link to="addservice">Add Service</Link></li>
-                <li><Link to="manageservice">Manage Service</Link></li>
-                <li><Link to="/dashboard/booked-services">Booked Services</Link></li>
-                <li><Link to="/servicetodo">Service To Do</Link></li> 
-                </ul>
-              </details>
+              
+            {user && ( 
+        <details>
+          <summary>Dashboard</summary>
+          <ul className="p-2">
+            <li><Link to="addservice">Add Service</Link></li>
+            <li><Link to="manageservice">Manage Service</Link></li>
+            <li><Link to="/dashboard/booked-services">Booked Services</Link></li>
+            <li><Link to="/servicetodo">Service To Do</Link></li>
+          </ul>
+        </details>
+      )}
+
             </li>
-            <li><a>Services</a></li>
           </ul>
         </div>
         <div className="navbar-end flex items-center">

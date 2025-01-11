@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
 const Services = ({ service }) => {
   const { imageUrl, serviceName, description, price, serviceArea, ProviderImage, ProviderName, _id ,email} = service;
   const navigate = useNavigate();
@@ -11,7 +10,7 @@ const Services = ({ service }) => {
       state: { service } // Send the entire service data
     });
   };
-
+console.log
   return (
     <div className="card bg-base-100 w-96 shadow-xl hover:shadow-2xl transition-shadow duration-300">
       <img src={imageUrl} alt={serviceName} className="w-full h-64 object-cover rounded-t-lg" />
