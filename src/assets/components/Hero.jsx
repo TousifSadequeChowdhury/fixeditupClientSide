@@ -22,39 +22,48 @@ const Hero = () => {
         <SwiperSlide>
           <div className="relative">
             <img
-              className="w-full h-[300px] object-cover"
+              className="w-full h-[400px] object-cover"
               src="https://i.ibb.co/sKs6Mpd/AC-service.png"
               alt="AC Servicing"
             />
-            <div className="absolute inset-0 bg-black opacity-60"></div>
-            <div className="absolute inset-0 flex items-center justify-center text-white text-4xl font-bold">
-              Welcome
+<div className="absolute inset-0 bg-gradient-to-r from-black via-black-800 to-[#000000] opacity-70"></div>
+<div className='absolute inset-0 flex flex-col items-center justify-center'>
+            <h1 className=" text-white text-4xl font-bold">
+            Welcome to Fixed It!
+            </h1>
+            <p className='text-white'>Your one-stop destination for every solution you need to fix anything and everything.</p>
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div className="relative">
             <img
-              className="w-full h-[300px] object-cover"
-              src="https://i.ibb.co/sKs6Mpd/AC-service.png"
-              alt="AC Servicing"
+              className="w-full h-[400px] object-cover"
+              src="https://i.ibb.co.com/kH2hb42/carwash.jpg"
+              alt="car Servicing"
             />
-            <div className="absolute inset-0 bg-black opacity-60"></div>
-            <div className="absolute inset-0 flex items-center justify-center text-white text-4xl font-bold">
-              Welcome
+              <div className="absolute inset-0 bg-black opacity-60"></div>
+            <div className='absolute inset-0 flex flex-col items-center justify-center'>
+            <h1 className=" text-white text-4xl font-bold">
+            Welcome to Fixed It!
+            </h1>
+            <p className='text-white'>Your one-stop destination for every solution you need to fix anything and everything.</p>
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div className="relative">
             <img
-              className="w-full h-[300px] object-cover"
-              src="https://i.ibb.co/sKs6Mpd/AC-service.png"
-              alt="AC Servicing"
+              className="w-full h-[400px] object-cover"
+              src="https://i.ibb.co.com/vv1pvsm/laptop.png"
+              alt="laptop"
             />
-            <div className="absolute inset-0 bg-black opacity-60"></div>
-            <div className="absolute inset-0 flex items-center justify-center text-white text-4xl font-bold">
-              Welcome
+            <div className="absolute inset-0 bg-black opacity-70"></div>
+            <div className='absolute inset-0 flex flex-col items-center justify-center'>
+            <h1 className=" text-white text-4xl font-bold">
+            Welcome to Fixed It!
+            </h1>
+            <p className='text-white'>Your one-stop destination for every solution you need to fix anything and everything.</p>
             </div>
           </div>
         </SwiperSlide>

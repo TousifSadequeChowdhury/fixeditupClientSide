@@ -151,7 +151,6 @@ const ManageService = () => {
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {services.map(service => (
               <div key={String(service._id)} className="bg-white rounded-lg shadow p-4">
-                <h1>{service._id}</h1>
                 <img
                   src={service.imageUrl}
                   alt={service.serviceName}

@@ -2,47 +2,56 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../AuthProvider";
 
 const ProviderDashboard = () => {
-  const [cartItems, setCartItems] = useState([]); // State to hold all users' cart items
-  const [error, setError] = useState("");
-  const { user } = useContext(AuthContext); // Access user
+    const { user } = useContext(AuthContext); // Access user from context
+    const userE = user.email; // Get user email
 
-  useEffect(() => {
-    if (!user) {
-      setError("User not logged in.");
-      return; // Exit early if user is not logged in
-    }
-  
-    console.log("User email:", user.email); // Check the user email
-  
-    fetch("http://localhost:3000/api/cart")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Fetched cart data:", data);
-        const filteredItems = data.filter(item => item.userEmail === user.email);
-  
-        console.log("Filtered cart items:", filteredItems); // Log filtered items
-        setCartItems(filteredItems);
-      })
-      .catch((error) => {
-        console.error("Error fetching cart items:", error);
-        setError("Failed to load cart data. Please try again later.");
-      });
-  }, [user]);
+    const [services, setServices] = useState([]);
+    const [setError, error] = useState([]);
+
+    useEffect(() => {
+        // Log initial render
+        console.log("Fetching services...");
+
+       fetch("http://localhost:3000/api/cart")
+            .then(response => response.json())
+            .then(data => {
+    
+    const servicesArray = Array.isArray(data) ? data : (data.services || []);
+                // Filter services based on user email, trimming and comparing case-insensitively
+                const filteredServices = servicesArray.filter(service => 
+                    service.proemail && 
+                    service.proemail.trim().toLowerCase() === userE.trim().toLowerCase()
+                );
+                
+
+                // Log filtered services
+                console.log('Filtered services:', filteredServices);
+                
+                // Update state if filtered services are found
+                if (filteredServices.length > 0) {
+                    setServices(filteredServices);
+                } else {
+                    console.log('No services found for this user');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching services:', error);
+            });
+    }, [userE]);
 
   // Function to handle status change
   const handleStatusChange = (itemId, newStatus) => {
     // Update the cartItems state with the new status
-    setCartItems(prevItems => 
-      prevItems.map(item => 
-        item._id === itemId ? { ...item, status: newStatus } : item
-      )
-    );
 
+    console.log('Before update:', services);
+    setServices((prevItems) => {
+      const updatedItems = prevItems.map((item) =>
+        item._id === itemId ? { ...item, status: newStatus } : item
+      );
+      console.log('After update:', updatedItems);
+      return updatedItems;
+    });
+    
     // Send the updated status to the backend
     fetch(`http://localhost:3000/api/cart/${itemId}/status`, {
       method: 'PUT',
@@ -61,36 +70,34 @@ const ProviderDashboard = () => {
         setError("Failed to update status. Please try again later.");
       });
   };
-
   return (
-    <div className="container mx-auto p-4">
-      {error && <p className="text-red-500">{error}</p>}
-
-      <h2 className="text-xl font-bold mb-4">All Users' Cart Items</h2>
-      <h1>{user ? user.email : "User not found"}</h1>
-
-      {cartItems.length === 0 ? (
-        <p>No cart items found.</p>
+    <div className="container mx-auto p-6">
+      {services.length === 0 ? (
+        <p className="text-center text-gray-500">No cart items found.</p>
       ) : (
-        <ul>
-          {cartItems.map((item) => (
+        <ul className="space-y-6">
+          {services.map((item) => (
             <li
               key={item._id}
-              className="border rounded p-4 mb-4 bg-gray-100"
+              className={`flex flex-col md:flex-row items-start justify-between bg-white border rounded-lg shadow-lg p-4 mb-4 ${item.status === 'pending' ? 'bg-green-100' : ''}`}
             >
-              <h3 className="font-bold">Service: {item.serviceName}</h3>
-              <p>Description: {item.description}</p>
-              <p>Price: {item.price}</p>
-              <p>Area: {item.serviceArea}</p>
-              <p>User Email: {item.userEmail}</p>
-
+              <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                <div>
+                  <h3 className="font-semibold text-lg text-gray-800">{item.serviceName}</h3>
+                  <p className="text-sm text-gray-600">Description: {item.description}</p>
+                  <p className="text-sm text-gray-600">Price: {item.price}</p>
+                  <p className="text-sm text-gray-600">Area: {item.serviceArea}</p>
+       
+                </div>
+              </div>
+  
               {/* Editable status */}
-              <div>
-                <label className="mr-2">Status: </label>
+              <div className="w-full md:w-auto">
+                <label className="block text-sm text-gray-700">Status:</label>
                 <select
                   value={item.status}
                   onChange={(e) => handleStatusChange(item._id, e.target.value)}
-                  className="border p-1 rounded"
+                  className="border p-2 rounded-md text-sm w-full md:w-32"
                 >
                   <option value="pending">Pending</option>
                   <option value="completed">Completed</option>
@@ -103,6 +110,9 @@ const ProviderDashboard = () => {
       )}
     </div>
   );
+  
+  
+  
 };
 
 export default ProviderDashboard;

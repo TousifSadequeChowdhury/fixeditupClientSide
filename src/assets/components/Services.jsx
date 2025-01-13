@@ -10,7 +10,6 @@ const Services = ({ service }) => {
       state: { service } // Send the entire service data
     });
   };
-console.log
   return (
     <div className="card bg-base-100 w-96 shadow-xl hover:shadow-2xl transition-shadow duration-300">
       <img src={imageUrl} alt={serviceName} className="w-full h-64 object-cover rounded-t-lg" />
@@ -18,7 +17,7 @@ console.log
         <h2 className="card-title text-2xl font-semibold text-gray-800">{serviceName}</h2>
         <p className="text-gray-600 mt-2">{description}</p>
         <div className="flex justify-between items-center mt-4">
-          <p className="text-lg font-bold text-green-500">{price}</p>
+          <p className="text-lg font-bold text-green-500">Tk {price}</p>
           <p className="text-sm text-gray-500">{serviceArea}</p>
         </div>
       </div>

@@ -8,10 +8,12 @@ import Registration from "../pages/Registration";
 import AddService from "../pages/AddService";
 import ManageService from "../pages/ManageService";
 import Service from "../components/Service";
-// import ProviderDashboard from "../pages/ProviderDashboard";
 import ServiceDetails from "../pages/ServiceDetails";
 import Privateroutes from "./Privateroutes";
 import CustomerReviews from "../pages/CustomerReviews";
+import BookedServices from "../pages/BookedServices";
+import ProviderDashboard from "../pages/ProviderDashboard ";
+// import BookedServices from "../pages/BookedServices";
 
 function AppRoutes() {
   const location = useLocation();
@@ -56,6 +58,15 @@ function AppRoutes() {
           </Privateroutes>
         }
       />
+       <Route
+        path="/bookedservices"
+        element={
+          <Privateroutes>
+
+            <BookedServices/>
+          </Privateroutes>
+        }
+      />
       <Route
         path="/manageservice"
         element={
@@ -68,7 +79,7 @@ function AppRoutes() {
         path="/servicetodo"
         element={
           <Privateroutes>
-           <providerdeshbord/>
+            <ProviderDashboard></ProviderDashboard>
           </Privateroutes>
         }
       />
