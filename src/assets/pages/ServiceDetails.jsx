@@ -2,10 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../AuthProvider';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ServiceDetails = () => {
   const { user } = useContext(AuthContext);
   const loginUserEmail = user?.email || 'email@example.com';
+  const addednotify = () => toast("Service added to cart successfully!");
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -63,8 +65,8 @@ const ServiceDetails = () => {
     };
 
     try {
-      await axios.post('http://localhost:3000/api/cart', serviceToAdd);
-      alert('Service added to cart successfully!');
+      await axios.post('https://fixed-it-up-server.vercel.app/api/cart', serviceToAdd);
+    addednotify();
       handleModalClose();
     } catch (error) {
       console.error('Error adding service to cart:', error);
@@ -77,7 +79,7 @@ const ServiceDetails = () => {
   }
 
   return (
-    <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
+    <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg mt-24">
       <div className="mb-10 flex items-center space-x-4">
         <img
           src={ProviderImage}
@@ -165,6 +167,7 @@ const ServiceDetails = () => {
           </div>
         </div>
       )}
+       <ToastContainer />
     </div>
   );
 };

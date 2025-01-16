@@ -14,7 +14,7 @@ const ProviderDashboard = () => {
 
         console.log("Fetching services...");
 
-        fetch("http://localhost:3000/api/cart")
+        fetch("https://fixed-it-up-server.vercel.app/api/cart")
             .then(response => response.json())
             .then(data => {
                 const servicesArray = Array.isArray(data) ? data : (data.services || []);
@@ -44,7 +44,7 @@ const ProviderDashboard = () => {
         ));
 
         // Send the updated status to the backend
-        fetch(`http://localhost:3000/api/cart/${itemId}/status`, {
+        fetch(`https://fixed-it-up-server.vercel.app/api/cart/${itemId}/status`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

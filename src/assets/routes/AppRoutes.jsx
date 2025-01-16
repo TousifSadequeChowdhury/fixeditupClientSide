@@ -13,6 +13,7 @@ import Privateroutes from "./Privateroutes";
 import CustomerReviews from "../pages/CustomerReviews";
 import BookedServices from "../pages/BookedServices";
 import ProviderDashboard from "../pages/ProviderDashboard ";
+import SimpleMap from "../pages/SimpleMap";
 // import BookedServices from "../pages/BookedServices";
 
 function AppRoutes() {
@@ -48,6 +49,7 @@ function AppRoutes() {
       {/* Public Routes */}
       <Route path="/services" element={<Service />} />
       <Route path="/customerevew" element={<CustomerReviews />} />
+      <Route path="/map" element={<SimpleMap/>} />
 
       {/* Private Routes */}
       <Route

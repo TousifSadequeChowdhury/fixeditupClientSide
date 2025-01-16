@@ -14,7 +14,7 @@ const BookedServices = () => {
     const fetchBookedServices = async () => {
       try {
         setLoading(true); // Start loading
-        const response = await axios.get('http://localhost:3000/api/cart');
+        const response = await axios.get('https://fixed-it-up-server.vercel.app/api/cart');
         const data = response.data;
 
         // Ensure `data` is an array or convert it to one

@@ -31,7 +31,7 @@ const AddService = () => {
       console.log('Product added:', formData);
     
       axios
-        .post('http://localhost:3000/api/data', formData, {
+        .post('https://fixed-it-up-server.vercel.app/api/data', formData, {
           headers: {
             'Content-Type': 'application/json',
           },

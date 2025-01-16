@@ -4,7 +4,7 @@ import { AuthContext } from '../../AuthProvider';
 import { MdLogout } from "react-icons/md";
 import { auth } from '../../firebase.config';
 import { signOut } from 'firebase/auth';
-
+import logo from '../img/fixedituplogo.png'
 const Nav = () => {
   const { user } = useContext(AuthContext);
 
@@ -20,7 +20,7 @@ const Nav = () => {
   };
 
   return (
-    <div className="navbar bg-[#3D405B] text-[#E07A5F] z-10">
+    <div className="navbar bg-[#3D405B] text-[#E07A5F] z-10 fixed">
       <div className="navbar-start">
         <div className="dropdown lg:hidden">
           <button tabIndex={0} className="btn btn-ghost">
@@ -58,7 +58,7 @@ const Nav = () => {
           </ul>
         </div>
         <Link to="/services">
-          <a className="btn btn-ghost text-xl">FIXEDITUP</a>
+          <img src={logo} alt="logo"  className="w-auto h-8" />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">

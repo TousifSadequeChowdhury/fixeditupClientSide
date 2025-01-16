@@ -20,7 +20,7 @@ const ManageService = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const { data } = await axios.get('http://localhost:3000/api/services');
+        const { data } = await axios.get('https://fixed-it-up-server.vercel.app/api/services');
         setServices(data);
       } catch (err) {
         setError('Failed to fetch services.');
@@ -41,7 +41,7 @@ const ManageService = () => {
     setLoading(true);
 
     try {
-      const { data } = await axios.put(`http://localhost:3000/edit/${editService._id}`, updatedService);
+      const { data } = await axios.put(`https://fixed-it-up-server.vercel.app/edit/${editService._id}`, updatedService);
       setServices((prevServices) =>
         prevServices.map((service) => (service._id === editService._id ? data : service))
       );
@@ -57,7 +57,7 @@ const ManageService = () => {
   const deleteItem = async (id) => {
     setLoading(true);
     try {
-      await axios.delete(`http://localhost:3000/api/items/${id}`);
+      await axios.delete(`https://fixed-it-up-server.vercel.app/api/items/${id}`);
       setServices((prevServices) => prevServices.filter((service) => service._id !== id));
     } catch (err) {
       setError('Failed to delete item.');

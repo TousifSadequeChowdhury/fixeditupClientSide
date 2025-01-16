@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Services from './Services';
 import { IoIosSearch } from "react-icons/io";
+import { motion } from 'framer-motion';
 
 const Service = () => {
   const [services, setServices] = useState([]);
@@ -9,12 +10,21 @@ const Service = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/services?search=${search}`)
+      .get(`https://fixed-it-up-server.vercel.app/api/services?search=${search}`)
       .then((response) => {
         setServices(response.data);
       })
       .catch((error) => console.error('Error fetching services:', error));
   }, [search]);
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 100, damping: 10 }
+    }),
+  };
 
   return (
     <>
@@ -34,13 +44,17 @@ const Service = () => {
       {/* Services Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-4 sm:mx-8 my-4">
         {
-          services.map(service => (
-            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
-              <Services
-                key={service._id}
-                service={service}
-              />
-            </div>
+          services.map((service, index) => (
+            <motion.div
+              key={service._id}
+              className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
+              custom={index}
+              initial="hidden"
+              animate="visible"
+              variants={cardVariants}
+            >
+              <Services service={service} />
+            </motion.div>
           ))
         }
       </div>

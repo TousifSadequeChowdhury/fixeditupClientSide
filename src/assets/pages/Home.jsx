@@ -1,6 +1,7 @@
 import Hero from '../components/Hero';
 import Service from '../components/Service';
 import CustomerReviews from './CustomerReviews';
+import SimpleMap from './SimpleMap';
 
 const Home = () => {
     return (
@@ -8,6 +9,7 @@ const Home = () => {
 <Hero></Hero>   
 <Service></Service>
 <CustomerReviews></CustomerReviews>
+<SimpleMap></SimpleMap>
    </div>
     );
 };

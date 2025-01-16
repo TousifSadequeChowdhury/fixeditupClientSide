@@ -8,7 +8,7 @@ import Footer from "./assets/components/Footer";
 function App() {
   return (
     <Router>
-      <div className="flex flex-col gap-5 bg-gray-100">
+      <div className="flex flex-col bg-gray-100">
         <Nav></Nav>
           <main>
    <AppRoutes></AppRoutes>
