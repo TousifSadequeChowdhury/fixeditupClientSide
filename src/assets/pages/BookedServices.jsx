@@ -70,7 +70,7 @@ const BookedServices = () => {
                 <span className="font-semibold">Status:</span> {service.status}
               </p>
               <p className="text-sm text-base-content">
-                <span className="font-semibold">User Email:</span> {service.userEmail}
+                <span className="font-semibold">Special Instructions:</span> {service.specialInstructions}
               </p>
             </div>
           </article>

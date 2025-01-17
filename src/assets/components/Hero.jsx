@@ -26,9 +26,9 @@ const Hero = () => {
               alt="AC Servicing"
             />
 <div className="absolute inset-0 bg-gradient-to-r from-black via-black-800 to-[#000000] opacity-70"></div>
-<div className='absolute inset-0 flex flex-col items-center justify-center'>
-            <h1 className=" text-white text-4xl font-bold">
-            Welcome to Fixed It!
+<div className='absolute inset-0 flex flex-col items-center justify-center text-center'>
+<h1 className=" text-white text-4xl font-bold">
+            Welcome to FixedITUP!
             </h1>
             <p className='text-white'>Your one-stop destination for every solution you need to fix anything and everything.</p>
             </div>
@@ -42,9 +42,9 @@ const Hero = () => {
               alt="car Servicing"
             />
               <div className="absolute inset-0 bg-black opacity-60"></div>
-            <div className='absolute inset-0 flex flex-col items-center justify-center'>
-            <h1 className=" text-white text-4xl font-bold">
-            Welcome to Fixed It!
+              <div className='absolute inset-0 flex flex-col items-center justify-center text-center'>
+              <h1 className=" text-white text-4xl font-bold">
+            Welcome to FixedITUP!
             </h1>
             <p className='text-white'>Your one-stop destination for every solution you need to fix anything and everything.</p>
             </div>
@@ -58,9 +58,9 @@ const Hero = () => {
               alt="laptop"
             />
             <div className="absolute inset-0 bg-black opacity-70"></div>
-            <div className='absolute inset-0 flex flex-col items-center justify-center'>
+            <div className='absolute inset-0 flex flex-col items-center justify-center text-center'>
             <h1 className=" text-white text-4xl font-bold">
-            Welcome to Fixed It!
+            Welcome to FixedITUP!
             </h1>
             <p className='text-white'>Your one-stop destination for every solution you need to fix anything and everything.</p>
             </div>

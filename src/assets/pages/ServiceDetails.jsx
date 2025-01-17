@@ -63,6 +63,8 @@ const ServiceDetails = () => {
       proemail: email,
       userEmail: loginUserEmail,
       status: 'pending',
+      specialInstructions: userData.specialInstructions,
+
     };
 
     try {

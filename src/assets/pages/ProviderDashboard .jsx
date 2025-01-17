@@ -76,14 +76,16 @@ const ProviderDashboard = () => {
                     {services.map((item) => (
                         <li
                             key={item._id}
-                            className={`flex flex-col md:flex-row items-start justify-between bg-white border rounded-lg shadow-lg p-4 mb-4 ${item.status === 'pending' ? 'bg-yellow-100' : ''}`}
+                            className={`flex flex-col md:flex-row items-start justify-between bg-base-200 border rounded-lg shadow-lg p-4 mb-4 ${item.status === 'pending' ? 'bg-green-300' : ''}`}
                         >
                             <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
                                 <div>
-                                    <h3 className="font-semibold text-lg text-gray-800">{item.serviceName}</h3>
-                                    <p className="text-sm text-gray-600">Description: {item.description}</p>
+                                    <h3 className="font-semibold text-lg text-base-800">{item.serviceName}</h3>
+                                    {/* <p className="text-sm text-gray-600">Description: {item.description}</p> */}
                                     <p className="text-sm text-gray-600">Price: {item.price}</p>
                                     <p className="text-sm text-gray-600">Area: {item.serviceArea}</p>
+                                    <h1 className="text-sm text-gray-600" >Special Instructions: {item.specialInstructions}</h1>
+
                                 </div>
                             </div>
 
@@ -99,6 +101,7 @@ const ProviderDashboard = () => {
                                     <option value="completed">Completed</option>
                                     <option value="cancelled">Cancelled</option>
                                 </select>
+                                
                             </div>
                         </li>
                     ))}
