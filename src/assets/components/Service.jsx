@@ -41,23 +41,24 @@ const Service = () => {
         </div>
       </div>
 
-      {/* Services Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-4 sm:mx-8 my-4">
-        {
-          services.map((service, index) => (
-            <motion.div
-              key={service._id}
-              className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
-              custom={index}
-              initial="hidden"
-              animate="visible"
-              variants={cardVariants}
-            >
-              <Services service={service} />
-            </motion.div>
-          ))
-        }
-      </div>
+    {/* Services Grid */}
+<div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-6 mx-auto my-4 bg-base-100 px-4">
+  {
+    services.map((service, index) => (
+      <motion.div
+        key={service._id}
+        className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto" // Center each item in the grid
+        custom={index}
+        initial="hidden"
+        animate="visible"
+        variants={cardVariants}
+      >
+        <Services service={service} />
+      </motion.div>
+    ))
+  }
+</div>
+
     </>
   );
 };

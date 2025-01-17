@@ -73,7 +73,7 @@ const ManageService = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-100 p-6">
+      <div className="min-h-screen bg-gray-100 p-6 mt-1">
         <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
           Manage Services
         </h1>
