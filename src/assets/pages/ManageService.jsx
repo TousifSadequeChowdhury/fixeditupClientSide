@@ -73,7 +73,7 @@ const ManageService = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-100 p-6 mt-1">
+      <div className="min-h-screen p-6 mt-1">
         <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
           Manage Services
         </h1>
@@ -84,7 +84,7 @@ const ManageService = () => {
         {/* Edit Service Dialog */}
         {editService && (
           <dialog id="edit-modal" className="modal">
-            <form onSubmit={handleUpdateService} className="bg-white p-6 rounded-lg shadow mb-6">
+            <form onSubmit={handleUpdateService} className="bg-base-200 p-6 rounded-lg shadow mb-6">
               <h2 className="text-2xl font-semibold mb-4">Edit Service</h2>
               <div className="mb-4">
                 <label className="block text-gray-700">Service Name</label>
@@ -148,7 +148,7 @@ const ManageService = () => {
         {/* Services List */}
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
-            <div key={String(service._id)} className="bg-white rounded-lg shadow p-4">
+            <div key={String(service._id)} className="bg-base-100 rounded-lg shadow p-4">
               <img
                 src={service.imageUrl}
                 alt={service.serviceName}

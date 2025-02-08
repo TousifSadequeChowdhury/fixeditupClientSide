@@ -1,15 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from '../../AuthProvider';
 
-
 const Login = () => {
-  const { googleLogin, userLogin, setUser } = useContext(AuthContext); // Use googleLogin from context
+  const { userLogin, setUser } = useContext(AuthContext);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // const handleGoogleLogin = () => {
-  //   googleLogin(); // Trigger Google login
-  // };
+  // Check the system preference for dark mode
+  useEffect(() => {
+    const darkModePreference = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setIsDarkMode(darkModePreference);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,51 +19,50 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         setUser(user);
-        console.log(user)
+        console.log(user);
       })
       .catch((error) => {
         alert(error.code);
       });
-    
   };
 
-    return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-            <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
-              Login
-            </h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="email"
-                  id="email"
-                placeholder="Email"
-                className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
-                required
-              />
-              <input
-                type="password"
-                  id="password"
-                placeholder="Password"
-                className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
-                required
-              />
-              <button
-                type="submit"
-                className="w-full p-3 bg-[#3D405B] text-white rounded-md hover:bg-[#343750] focus:outline-none"
-              >
-                Login
-              </button>
-            </form>
-            <p className="mt-4 text-center text-gray-600">
-              Don't have an account?{' '}
-              <Link to="/registration" className="text-[#3D405B] hover:underline">
-              Sign Up
-              </Link>
-            </p>
-          </div>
-        </div>
-      );
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="bg-base-200 p-8 rounded-lg shadow-lg w-96">
+        <h2 className="text-2xl font-semibold text-center mb-6">
+          Login
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            className={`${isDarkMode ? 'bg-gray-700 border-gray-600 text-gray-200' : 'bg-base-100 border-gray-300 text-gray-700'} w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#3D405B]`}
+            required
+          />
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            className={`${isDarkMode ? 'bg-gray-700 border-gray-600 text-gray-200' : 'bg-base-100 border-gray-300 text-gray-700'} w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#3D405B]`}
+            required
+          />
+          <button
+            type="submit"
+            className={`${isDarkMode ? 'bg-[#3D405B] hover:bg-[#343750]' : 'bg-[#3D405B] hover:bg-[#343750]'} w-full p-3 text-white rounded-md focus:outline-none`}
+          >
+            Login
+          </button>
+        </form>
+        <p className="mt-4 text-center">
+          Don't have an account?{' '}
+          <Link to="/registration" className={`${isDarkMode ? 'text-[#A0B0B9]' : 'text-[#3D405B]'} hover:underline`}>
+            Sign Up
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export default Login;

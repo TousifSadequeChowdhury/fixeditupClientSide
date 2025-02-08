@@ -37,8 +37,8 @@ const Registration = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 mt-14">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="bg-base-200 p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
           Register
         </h2>
@@ -49,7 +49,7 @@ const Registration = () => {
             name="name"
             id="name"
             placeholder="Full Name"
-            className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
+            className="bg-base-100 w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
             required
           />
           
@@ -59,7 +59,7 @@ const Registration = () => {
             name="email"
             id="email"
             placeholder="Email"
-            className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
+            className="bg-base-100 w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
             required
           />
 
@@ -69,7 +69,7 @@ const Registration = () => {
             name="password"
             id="password"
             placeholder="Password"
-            className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
+            className="bg-base-100 w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
             required
           />
 
@@ -79,7 +79,7 @@ const Registration = () => {
             name="photoURL"
             id="photoURL"
             placeholder="Photo URL (Optional)"
-            className="w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
+            className="bg-base-100 w-full p-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3D405B]"
           />
 
           {/* Submit Button */}
