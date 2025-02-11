@@ -135,7 +135,7 @@ const Nav = () => {
 
         {/* Mobile & Tablet Menu */}
         {menuOpen && (
-          <div className="absolute top-16 right-6 bg-white shadow-md rounded-md w-52 p-4 z-50">
+          <div className="absolute top-16 right-6 bg-base-200 shadow-md rounded-md w-52 p-4 z-50">
             <ul className="flex flex-col space-y-3">
               <li>
                 <Link to="/">Home</Link>
