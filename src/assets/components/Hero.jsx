@@ -25,7 +25,7 @@ const Hero = () => {
               src="https://i.ibb.co/sKs6Mpd/AC-service.png"
               alt="AC Servicing"
             />
-<div className="absolute inset-0 bg-gradient-to-r from-black via-black-800 to-[#000000] opacity-70"></div>
+<div className="absolute inset-0 bg-gradient-to-r from-black via-black-800 to-[#000000]  opacity-90"></div>
 <div className='absolute inset-0 flex flex-col items-center justify-center text-center'>
 <h1 className=" text-white text-4xl font-bold">
             Welcome to FixedITUP!
@@ -41,7 +41,7 @@ const Hero = () => {
               src="https://i.ibb.co.com/kH2hb42/carwash.jpg"
               alt="car Servicing"
             />
-              <div className="absolute inset-0 bg-black opacity-60"></div>
+              <div className="absolute inset-0 bg-black  opacity-90"></div>
               <div className='absolute inset-0 flex flex-col items-center justify-center text-center'>
               <h1 className=" text-white text-4xl font-bold">
             Welcome to FixedITUP!
@@ -57,7 +57,7 @@ const Hero = () => {
               src="https://i.ibb.co.com/vv1pvsm/laptop.png"
               alt="laptop"
             />
-            <div className="absolute inset-0 bg-black opacity-70"></div>
+            <div className="absolute inset-0 bg-black  opacity-90"></div>
             <div className='absolute inset-0 flex flex-col items-center justify-center text-center'>
             <h1 className=" text-white text-4xl font-bold">
             Welcome to FixedITUP!
