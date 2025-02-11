@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider';
 import { FcGoogle } from "react-icons/fc";
+import Lottie from 'react-lottie'; // Import Lottie
+import signupanimation from '../../../public/Animation - 1739269666558.json'; // Import the signup animation
 
 const Registration = () => {
   const { registerUser, setUser, googleLogin } = useContext(AuthContext);
@@ -36,9 +38,24 @@ const Registration = () => {
     }
   };
 
+  // Lottie options for the animation
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: signupanimation,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="bg-base-200 p-8 rounded-lg shadow-lg w-96">
+        {/* Lottie Animation */}
+        <div className="mb-6">
+          <Lottie options={defaultOptions} height={200} width={200} />
+        </div>
+
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
           Register
         </h2>
@@ -92,15 +109,15 @@ const Registration = () => {
         </form>
 
         <div className="mt-4">
-        <button
-  onClick={handleGoogleLogin}
-  className="w-full p-3 border border-gray-300 rounded-md flex items-center justify-center hover:border-gray-400 focus:outline-none FLEX gap-3"
->
-<FcGoogle />
-  <span className="text-gray-700 font-medium">
-    Sign in with Google
-  </span>
-</button>
+          <button
+            onClick={handleGoogleLogin}
+            className="w-full p-3 border border-gray-300 rounded-md flex items-center justify-center hover:border-gray-400 focus:outline-none FLEX gap-3"
+          >
+            <FcGoogle />
+            <span className="text-gray-700 font-medium">
+              Sign in with Google
+            </span>
+          </button>
         </div>
 
         <p className="mt-4 text-center text-gray-600">
