@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider';
+import Lottie from 'react-lottie'; // Import Lottie
+import loginanimation from '../../../public/Animation - 1739268191592.json'; // Import your animation JSON
 
 const Login = () => {
   const { userLogin, setUser } = useContext(AuthContext);
@@ -26,9 +28,23 @@ const Login = () => {
       });
   };
 
+  // Lottie options for the animation
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loginanimation,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="bg-base-200 p-8 rounded-lg shadow-lg w-96">
+        {/* Lottie Animation */}
+        <div className="mb-6">
+          <Lottie options={defaultOptions} height={200} width={200} />
+        </div>
         <h2 className="text-2xl font-semibold text-center mb-6">
           Login
         </h2>
