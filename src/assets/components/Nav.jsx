@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider";
-import { MdLogout } from "react-icons/md"; // React Icon for Logout
+import { MdLogout } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
 import { auth } from "../../firebase.config";
 import { signOut } from "firebase/auth";
 import logo from "../img/fixedituplogo.png";
 
 const Nav = () => {
   const { user } = useContext(AuthContext);
-
-  const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleToggle = (e) => {
     const newTheme = e.target.checked ? "dark" : "light";
@@ -18,53 +19,50 @@ const Nav = () => {
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
-    const localTheme = localStorage.getItem("theme");
-    document.querySelector("html").setAttribute("data-theme", localTheme);
+    document.querySelector("html").setAttribute("data-theme", theme);
   }, [theme]);
 
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
         console.log("User logged out successfully");
-        Navigate("/login"); // Redirect to the login page
+        Navigate("/login");
       })
       .catch((error) => {
         console.error("Error during logout:", error);
       });
   };
 
-  const getFirstName = (name) => {
-    return name?.split(" ")[0] || "User";
-  };
+  const getFirstName = (name) => name?.split(" ")[0] || "User";
 
   return (
-    <div className="navbar bg-[#3D405B] text-[#E07A5F] z-10 fixed w-full px-10">
+    <div className="navbar bg-[#3D405B] text-[#E07A5F] fixed w-full px-6 py-3 shadow-md z-50">
+      {/* Left - Logo */}
       <div className="navbar-start">
-        <div className="dropdown lg:hidden">
-          <button tabIndex={0} className="btn btn-ghost">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-            </svg>
-          </button>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow">
-            <li>
-              <a href="/">Home</a>
-            </li>
+        <Link to="/">
+          <img src={logo} alt="Logo" className="h-10 w-auto" />
+        </Link>
+      </div>
+
+      {/* Center - Desktop Menu */}
+      <div className="hidden lg:flex navbar-center">
+        <ul className="menu menu-horizontal space-x-6 text-lg">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/services">Services</Link>
+          </li>
+          {user && (
             <li className="relative group">
-              <details className={`${!user ? "pointer-events-none opacity-50" : ""}`}>
+              <details>
                 <summary className="cursor-pointer">Dashboard</summary>
-                <ul className="p-2">
+                <ul className="p-2 bg-base-100 rounded shadow">
                   <li>
-                    <Link to="addservice">Add Service</Link>
+                    <Link to="/addservice">Add Service</Link>
                   </li>
                   <li>
-                    <Link to="manageservice">Manage Service</Link>
+                    <Link to="/manageservice">Manage Service</Link>
                   </li>
                   <li>
                     <Link to="/bookedservices">Booked Services</Link>
@@ -74,69 +72,32 @@ const Nav = () => {
                   </li>
                 </ul>
               </details>
-              {!user && (
-                <span className="absolute -top-6 left-0 bg-gray-700 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  Login first
-                </span>
-              )}
             </li>
-            <li>
-              <Link to="/services">Services</Link>
-            </li>
-          </ul>
-        </div>
-        <Link to="/services">
-          <img src={logo} alt="logo" className="w-auto h-8" />
-        </Link>
-      </div>
-
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <Link to="/services">Services</Link>
-          </li>
-          <li className="relative group">
-            <details className={`${!user ? "pointer-events-none opacity-50" : ""}`}>
-              <summary className="cursor-pointer">Dashboard</summary>
-              <ul className="p-2">
-                <li>
-                  <Link to="addservice">Add Service</Link>
-                </li>
-                <li>
-                  <Link to="manageservice">Manage Service</Link>
-                </li>
-                <li>
-                  <Link to="/bookedservices">Booked Services</Link>
-                </li>
-                <li>
-                  <Link to="/servicetodo">Service To Do</Link>
-                </li>
-              </ul>
-            </details>
-            {!user && (
-              <span className="absolute -top-6 left-0 bg-gray-700 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                Login first
-              </span>
-            )}
-          </li>
+          )}
         </ul>
       </div>
 
-      <div className="navbar-end flex items-center">
+      {/* Right - Profile & Theme Toggle */}
+      <div className="navbar-end flex items-center space-x-4">
+        {/* Theme Toggle */}
+        <label className="swap">
+          <input type="checkbox" className="toggle" checked={theme === "dark"} onChange={handleToggle} />
+        </label>
+
+        {/* Profile & Logout for Large Screens */}
         {user ? (
-          <div className="flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4">
             <div className="flex items-center space-x-2">
-              <img
-                src={user.photoURL || "default-avatar.png"}
-                alt="User Avatar"
-                className="w-10 h-10 rounded-full object-cover border-2 border-[#E07A5F]"
-              />
-              <span className="text-lg font-semibold text-gray-200">
-                {getFirstName(user.displayName)}
-              </span>
+              {user.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="User Avatar"
+                  className="w-10 h-10 rounded-full object-cover border-2 border-[#E07A5F]"
+                />
+              ) : (
+                <FaUserCircle className="w-10 h-10 text-[#E07A5F]" />
+              )}
+              <span className="text-lg font-semibold text-gray-200">{getFirstName(user.displayName)}</span>
             </div>
             <button
               onClick={handleLogout}
@@ -150,12 +111,90 @@ const Nav = () => {
             Login
           </Link>
         )}
-      </div>
 
-      {/* Theme Toggle Switch */}
-      <label className="swap">
-        <input type="checkbox" className="toggle" defaultChecked={theme === "dark"} onChange={handleToggle} />
-      </label>
+        {/* Mobile Menu Button */}
+        <button
+          className="lg:hidden btn btn-ghost btn-circle"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            {menuOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
+
+        {/* Mobile & Tablet Menu */}
+        {menuOpen && (
+          <div className="absolute top-16 right-6 bg-white shadow-md rounded-md w-52 p-4 z-50">
+            <ul className="flex flex-col space-y-3">
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/services">Services</Link>
+              </li>
+
+              {/* Dashboard Dropdown (For SM & MD) */}
+              {user && (
+                <li className="relative">
+                  <details>
+                    <summary className="cursor-pointer p-2 bg-gray-100 rounded">Dashboard</summary>
+                    <ul className="p-2 bg-gray-50 rounded shadow mt-2">
+                      <li>
+                        <Link to="/addservice">Add Service</Link>
+                      </li>
+                      <li>
+                        <Link to="/manageservice">Manage Service</Link>
+                      </li>
+                      <li>
+                        <Link to="/bookedservices">Booked Services</Link>
+                      </li>
+                      <li>
+                        <Link to="/servicetodo">Service To Do</Link>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+              )}
+
+              {/* Profile & Logout */}
+              {user ? (
+                <li className="border-t pt-3">
+                  <div className="flex items-center gap-3">
+                    {user.photoURL ? (
+                      <img src={user.photoURL} alt="Avatar" className="w-10 h-10 rounded-full" />
+                    ) : (
+                      <FaUserCircle className="w-10 h-10 text-gray-300" />
+                    )}
+                    <span className="font-semibold">{getFirstName(user.displayName)}</span>
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="mt-3 w-full flex items-center gap-2 p-2 bg-red-500 text-white rounded hover:bg-red-600"
+                  >
+                    <MdLogout className="w-5 h-5" /> Logout
+                  </button>
+                </li>
+              ) : (
+                <li>
+                  <Link to="/login" className="block text-center bg-[#E07A5F] text-white px-4 py-2 rounded">
+                    Login
+                  </Link>
+                </li>
+              )}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
